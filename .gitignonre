@@ -3,9 +3,9 @@
 *.tfstate.*
 .terraform/
 .crc
-envs/dev/.terraform/
-envs/dev/.terraform.lock.hcl
-envs/dev/*-sa.json
+*.terraform/
+*.terraform.lock.hcl
+*-sa.json
 # Sensitive vars
 *.tfvars
 # IDE trash
