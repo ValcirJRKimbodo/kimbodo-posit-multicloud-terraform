@@ -147,53 +147,6 @@ Secrets at runtime:
 
 ---
 
-## CI / CD Pipeline (GitLab example)
-```yaml
-stages: [fmt, lint, plan, apply]
-
-image: hashicorp/terraform:1.7
-
-before_script:
-  - terraform -version
-  - cd terraform/envs/dev
-  - terraform init -backend-config="bucket=$TF_BUCKET" -backend-config="prefix=dev"
-
-fmt:
-  stage: fmt
-  script: terraform fmt -check -recursive
-
-lint:
-  stage: lint
-  script:
-    - tflint --recursive
-    - tfsec ../..
-
-plan:
-  stage: plan
-  script: terraform plan -out tfplan
-  artifacts:
-    paths: [terraform.envs.dev.tfplan]
-  when: manual
-
-apply:
-  stage: apply
-  script: terraform apply -auto-approve tfplan
-  when: manual
-```
-> Adapt the backend config (`$TF_BUCKET`) & add AWS/Azure jobs as modules arrive.
-
----
-
-## Extending to **AWS** & **Azure**
-1. **Create new provider blocks** in `modules/versions.tf` with `alias = "aws"` or `"az"`.
-2. Implement `modules/eks`, `modules/aks` mirroring the input-output contract used by `gke`.
-3. Spin up new root modules under `envs/aws-dev`, `envs/azure-dev` – reuse variables where possible.
-4. Update CI pipeline to include parallel plan/apply per cloud.
-
-> Multicloud becomes a **parallel root‑module problem**, not a spaghetti of `count` statements.
-
----
-
 ## Troubleshooting
 | Symptom | Likely cause | Fix |
 |---------|--------------|-----|
@@ -214,4 +167,4 @@ apply:
 ## License
 Apache 2.0 – see `LICENSE` file.
 
-> **Maintainer:** Valcir Balbinotti Junior — feel free to ping me on LinkedIn `/in/valcir-devops-architect` 📬
+> **Maintainer:** Valcir Balbinotti Junior — feel free to ping me on Kimbodo's Slack
