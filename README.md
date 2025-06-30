@@ -13,11 +13,9 @@
 6. [Per‑Environment Workflow](#per-environment-workflow)
 7. [Modules Overview](#modules-overview)
 8. [Variables & Secrets](#variables--secrets)
-9. [CI / CD Pipeline](#ci--cd-pipeline)
-10. [Extending to AWS & Azure](#extending-to-aws--azure)
-11. [Troubleshooting](#troubleshooting)
-12. [Contributing](#contributing)
-13. [License](#license)
+9. [Troubleshooting](#troubleshooting)
+10. [Contributing](#contributing)
+11. [License](#license)
 
 ---
 
