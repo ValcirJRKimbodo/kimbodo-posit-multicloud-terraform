@@ -1,0 +1,14 @@
+# Terraform state
+*.tfstate
+*.tfstate.*
+.terraform/
+.crc
+envs/dev/.terraform/
+envs/dev/.terraform.lock.hcl
+envs/dev/*-sa.json
+# Sensitive vars
+*.tfvars
+# IDE trash
+.idea/
+.vscode/
+.DS_Store
