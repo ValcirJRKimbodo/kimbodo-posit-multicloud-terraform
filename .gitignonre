@@ -1,6 +1,9 @@
 # Terraform state
 *.tfstate
 *.tfstate.*
+*.terraform.*
+*.tfdestroy
+*.terraform/
 .terraform/
 .crc
 *.terraform/
