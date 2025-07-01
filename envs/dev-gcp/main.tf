@@ -1,5 +1,5 @@
 module "network" {
-  source          = "../../modules/network"
+  source          = "../../gcp/modules/network"
   vpc_name        = "posit-application-vpc"
   vpc_description = "VPC for Posit MVP infrastructure"
   subnet_name     = "subnet-posit-us-central1"
@@ -10,7 +10,7 @@ module "network" {
 }
 
 module "gke" {
-  source              = "../../modules/gke"
+  source              = "../../gcp/modules/gke"
   cluster_name        = "posit-cluster-mvp"
   region              = var.region
   network             = module.network.vpc_id
@@ -20,7 +20,7 @@ module "gke" {
 }
 
 module "static_ip" {
-  source = "../../modules/static-ip"
+  source = "../../gcp/modules/static-ip"
   name   = "posit-cluster-reserved-ip"
   region = var.region
 }
