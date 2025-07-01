@@ -1,17 +1,14 @@
 # Terraform state
 *.tfstate
 *.tfstate.*
-*.terraform.*
-*.tfdestroy
-*.terraform/
-.terraform/
-.crc
-*.terraform/
-*.terraform.lock.hcl
+.terraform/            # em qualquer subpasta
+.tfdestroy
+*.tfplan
+.terraform.lock.hcl    # (⚠️ ver nota abaixo)
+
+# Sensitive keys
 *-sa.json
-# Sensitive vars
-*.tfvars
-# IDE trash
+
+# IDE
 .idea/
 .vscode/
-.DS_Store
