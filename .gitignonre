@@ -7,7 +7,7 @@
 .terraform.lock.hcl    # (⚠️ ver nota abaixo)
 
 # Sensitive keys
-*-sa.json
+**/*-sa.json
 
 # IDE
 .idea/
