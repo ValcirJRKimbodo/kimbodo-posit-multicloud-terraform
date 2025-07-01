@@ -8,6 +8,8 @@ resource "google_container_cluster" "this" {
   network    = var.network
   subnetwork = var.subnetwork
 
+  deletion_protection = var.deletion_protection
+
   remove_default_node_pool = true
   initial_node_count       = 1
 

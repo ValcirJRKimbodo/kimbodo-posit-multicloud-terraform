@@ -10,16 +10,17 @@ module "network" {
 }
 
 module "gke" {
-  source          = "../../modules/gke"
-  cluster_name    = "posit-cluster-mvp"
-  region          = var.region
-  network         = module.network.vpc_id
-  subnetwork      = module.network.subnet_id
-  pods_range_name = module.network.pods_range_name
+  source              = "../../modules/gke"
+  cluster_name        = "posit-cluster-mvp"
+  region              = var.region
+  network             = module.network.vpc_id
+  subnetwork          = module.network.subnet_id
+  pods_range_name     = module.network.pods_range_name
+  deletion_protection = false
 }
 
 module "static_ip" {
   source = "../../modules/static-ip"
-  name   = "traefik-ip"
+  name   = "posit-cluster-reserved-ip"
   region = var.region
 }

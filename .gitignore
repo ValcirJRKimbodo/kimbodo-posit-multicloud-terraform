@@ -1,10 +1,10 @@
 # Terraform state
 *.tfstate
 *.tfstate.*
-.terraform/            # em qualquer subpasta
+.terraform/    
 .tfdestroy
 *.tfplan
-.terraform.lock.hcl    # (⚠️ ver nota abaixo)
+.terraform.lock.hcl
 
 # Sensitive keys
 **/*-sa.json
