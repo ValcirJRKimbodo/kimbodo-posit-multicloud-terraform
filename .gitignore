@@ -5,6 +5,7 @@
 .tfdestroy
 *.tfplan
 .terraform.lock.hcl
+*tfdestroy
 
 # Sensitive keys
 **/*-sa.json

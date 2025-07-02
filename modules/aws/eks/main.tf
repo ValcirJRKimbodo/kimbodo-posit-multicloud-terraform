@@ -1,12 +1,10 @@
-data "aws_eks_cluster_version" "latest" {}
-
 resource "aws_eks_cluster" "this" {
   name     = var.cluster_name
-  version  = data.aws_eks_cluster_version.latest.version
+  version  = var.k8s_version
   role_arn = var.eks_role_arn
 
   vpc_config {
-    subnet_ids = [var.private_subnet]
+    subnet_ids = var.private_subnet_ids
     endpoint_private_access = true
     endpoint_public_access  = true
   }
@@ -20,7 +18,7 @@ resource "aws_eks_node_group" "primary" {
   cluster_name    = aws_eks_cluster.this.name
   node_group_name = "primary"
   node_role_arn   = var.worker_role_arn
-  subnet_ids      = [var.private_subnet]
+  subnet_ids      = var.private_subnet_ids
 
   scaling_config {
     desired_size = 2

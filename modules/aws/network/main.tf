@@ -15,24 +15,25 @@ resource "aws_vpc" "this" {
 }
 
 resource "aws_subnet" "public" {
-  vpc_id            = aws_vpc.this.id
-  cidr_block        = cidrsubnet(var.vpc_cidr, 4, 0) # 10.20.0.0/20
+  for_each = toset(var.azs)
+
+  vpc_id                  = aws_vpc.this.id
+  cidr_block              = cidrsubnet(var.vpc_cidr, 4, index(var.azs, each.key)) # /20 slices
+  availability_zone       = each.key
   map_public_ip_on_launch = true
-  availability_zone = "${var.region}a"
-  tags = {
-    Name = "${var.vpc_name}-public"
-  }
+
+  tags = { Name = "${var.vpc_name}-public-${each.key}" }
 }
 
 resource "aws_subnet" "private" {
-  vpc_id            = aws_vpc.this.id
-  cidr_block        = cidrsubnet(var.vpc_cidr, 4, 1) # 10.20.16.0/20
-  availability_zone = "${var.region}a"
-  tags = {
-    Name = "${var.vpc_name}-private"
-  }
-}
+  for_each = toset(var.azs)
 
+  vpc_id            = aws_vpc.this.id
+  cidr_block        = cidrsubnet(var.vpc_cidr, 4, index(var.azs, each.key) + 8) # next /20 slices
+  availability_zone = each.key
+
+  tags = { Name = "${var.vpc_name}-private-${each.key}" }
+}
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.this.id
 }
@@ -46,6 +47,8 @@ resource "aws_route_table" "public" {
 }
 
 resource "aws_route_table_association" "public" {
-  subnet_id      = aws_subnet.public.id
+  for_each       = aws_subnet.public
+  subnet_id      = each.value.id
   route_table_id = aws_route_table.public.id
 }
+

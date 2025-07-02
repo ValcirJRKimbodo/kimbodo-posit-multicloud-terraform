@@ -4,3 +4,7 @@ variable "vpc_cidr"  {
     default = "10.20.0.0/16" 
 }
 variable "region"    { type = string }
+variable "azs" {
+  description = "AZs to spread subnets across"
+  type        = list(string)
+}
